@@ -29,6 +29,34 @@
             </list>
         </property>
     </bean>
+    <!--json解析器配置-->
+    <!--将字符串转换为json-->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean id="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/html;charset=UTF-8</value>
+                            <value>application/json;charset=UTF-8</value>
+                            <value>text/plain;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+                <bean id="jsonConverter"
+                      class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <!-- 这里顺序不能反，一定先写text/html,不然ie下出现下载提示 -->
+                            <value>text/html;charset=UTF-8</value>
+                            <value>application/json;charset=UTF-8</value>
+                            <value>text/plain;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
     <!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
